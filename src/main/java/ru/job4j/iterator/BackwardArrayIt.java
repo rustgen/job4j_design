@@ -13,7 +13,8 @@ public class BackwardArrayIt implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        return point < data.length;
+        point = data.length - 1;
+        return point >= 0;
     }
 
     @Override
@@ -21,6 +22,6 @@ public class BackwardArrayIt implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        return data[data.length - ++point];
+        return data[point--];
     }
 }
