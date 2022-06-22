@@ -29,17 +29,15 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, size);
-        T old = container[index];
+        T old = get(index);
         container[index] = newValue;
         return old;
     }
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, size);
+        T old = get(index);
         modCount++;
-        T old = container[index];
         System.arraycopy(container, index + 1, container, index, container.length - index - 1);
         container[container.length - 1] = null;
         size--;
