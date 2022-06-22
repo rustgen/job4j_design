@@ -11,10 +11,16 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     public SimpleArrayList(int capacity) {
         this.container = (T[]) new Object[capacity];
     }
+
+    public void increaseArr() {
+        int capacity = (container.length == 0 ? 8 : size) * 2;
+        container = Arrays.copyOf(container, capacity);
+    }
+
     @Override
     public void add(T value) {
-        if (size == container.length) {
-            Arrays.copyOf(container, container.length * 2);
+        if (container.length == size) {
+            increaseArr();
         }
         container[size] = value;
         size++;
@@ -24,21 +30,26 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     @Override
     public T set(int index, T newValue) {
         Objects.checkIndex(index, size);
+        T old = null;
         for (int i = 0; i < container.length; i++) {
             if (i == index) {
+                old = container[i];
                 container[i] = newValue;
                 break;
             }
         }
-        return container[index];
+        return old;
     }
 
     @Override
     public T remove(int index) {
         Objects.checkIndex(index, size);
-        System.arraycopy(container, index + 1, container, index, container.length - index - 1);
         modCount++;
-        return (T) container;
+        T old = container[index];
+        System.arraycopy(container, index + 1, container, index, container.length - index - 1);
+        size--;
+        container[size] = null;
+        return old;
     }
 
     @Override
@@ -49,7 +60,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
 
     @Override
     public int size() {
-        return container.length;
+        return size;
     }
 
     @Override
@@ -57,13 +68,14 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         return new Iterator<T>() {
 
             final int expectedModCount = modCount;
+            int cursor = 0;
 
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return false;
+                return cursor < size;
             }
 
             @Override
@@ -71,8 +83,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                modCount++;
-                return container[size++];
+                return container[cursor++];
             }
         };
     }
