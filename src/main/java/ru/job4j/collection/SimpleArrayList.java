@@ -41,8 +41,8 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         modCount++;
         T old = container[index];
         System.arraycopy(container, index + 1, container, index, container.length - index - 1);
+        container[container.length - 1] = null;
         size--;
-        container[size] = null;
         return old;
     }
 
