@@ -1,7 +1,5 @@
 package ru.job4j.collection;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 public class SimpleQueue<T> {
@@ -13,7 +11,7 @@ public class SimpleQueue<T> {
     int countOut = 0;
 
     public T poll() {
-        if (countIn == 0) {
+        if (countIn == 0 && countOut == 0) {
             throw new NoSuchElementException();
         }
 
