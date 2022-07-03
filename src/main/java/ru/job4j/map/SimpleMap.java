@@ -18,7 +18,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean put(K key, V value) {
         boolean insert = false;
-        if ((float) (count / capacity) >= LOAD_FACTOR) {
+        if (capacity * LOAD_FACTOR >= count) {
             expand();
         }
         int bucket = hash(key.hashCode());
@@ -26,13 +26,21 @@ public class SimpleMap<K, V> implements Map<K, V> {
         if (table[index] == null) {
             table[index] = new MapEntry<>(key, value);
             count++;
+            modCount++;
             insert = true;
         }
         return insert;
     }
 
     private int hash(int hashCode) {
-        return hashCode % capacity;
+        int sum = 0;
+        int num;
+        while (hashCode != 0) {
+            num = hashCode % 10;
+            sum += num;
+            hashCode /= 10;
+        }
+        return sum % capacity;
     }
 
     private int indexFor(int hash) {
@@ -41,23 +49,29 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     private void expand() {
         capacity = capacity * 2;
-        MapEntry<K, V>[] entry = new MapEntry[capacity];
+        MapEntry<K, V>[] large = new MapEntry[capacity];
+        for (MapEntry entry : table) {
+            if (entry != null) {
+                int index = indexFor(hash(entry.key.hashCode()));
+                large[index] = entry;
+            }
+        }
+        table = large;
     }
 
     @Override
     public V get(K key) {
         int index = indexFor(hash(key.hashCode()));
-        if (table[index] != null && table[index].key.equals(key)) {
-                return table[index].value;
-        }
-        return null;
+        return  (table[index] != null && table[index].key.hashCode()
+                == key.hashCode() && table[index].key.equals(key))
+                ? table[index].value : null;
     }
 
     @Override
     public boolean remove(K key) {
         boolean res = false;
-        int index = (int) get(key);
-        if (get(key) != null) {
+        int index = indexFor(hash(key.hashCode()));
+        if (table[index] != null && table[index].key.equals(key)) {
             table[index] = null;
             count--;
             modCount++;
@@ -78,7 +92,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return cursor < count;
+                if (table[cursor] == null) {
+                    cursor++;
+                }
+                return cursor <= count;
             }
 
             @Override

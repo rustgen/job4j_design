@@ -5,6 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.job4j.collection.SimpleArrayList;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -49,7 +52,7 @@ public class SimpleMapTest {
 
     @Test
     public void whenRemoveIsTrue() {
-        map.put(9, "nine");
+        Assert.assertTrue(map.put(9, "nine"));
         Assert.assertTrue(map.remove(9));
         Assert.assertNull(map.get(9));
     }
@@ -58,5 +61,25 @@ public class SimpleMapTest {
     public void whenRemoveIsFalse() {
         map.put(9, "nine");
         Assert.assertFalse(map.remove(12));
+    }
+
+    @Test
+    public void whenIteratorHasNext() {
+        Iterator<Integer> iterator = map.iterator();
+        Assert.assertThat(iterator.next(), is(1));
+        iterator.next();
+        Assert.assertThat(iterator.next(), is(3));
+        assertTrue(iterator.hasNext());
+        Assert.assertThat(iterator.next(), is(4));
+        assertTrue(iterator.hasNext());
+        Assert.assertThat(iterator.next(), is(5));
+    }
+
+    @Test (expected = NoSuchElementException.class)
+    public void whenIteratorNotNext() {
+        SimpleMap<Integer, String> map = new SimpleMap<>();
+        Iterator<Integer> iterator = map.iterator();
+        Assert.assertNull(iterator.next());
+        iterator.next();
     }
 }
