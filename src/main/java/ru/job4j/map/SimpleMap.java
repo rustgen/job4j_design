@@ -92,10 +92,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                while (table[cursor] == null) {
+                while (table[cursor] == null && cursor < capacity) {
                     cursor++;
                 }
-                return cursor <= count;
+                return cursor <= capacity;
             }
 
             @Override
