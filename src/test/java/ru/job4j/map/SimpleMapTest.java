@@ -75,7 +75,7 @@ public class SimpleMapTest {
         Assert.assertThat(iterator.next(), is(5));
     }
 
-    @Test (expected = NoSuchElementException.class)
+    @Test (expected = ArrayIndexOutOfBoundsException.class)
     public void whenIteratorNotNext() {
         SimpleMap<Integer, String> map = new SimpleMap<>();
         Iterator<Integer> iterator = map.iterator();
