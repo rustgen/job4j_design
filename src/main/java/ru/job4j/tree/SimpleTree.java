@@ -1,10 +1,9 @@
 package ru.job4j.tree;
 
-import ru.job4j.map.SimpleMap;
-
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Queue;
+import java.util.function.Predicate;
 
 public class SimpleTree<E> implements Tree<E> {
 
@@ -17,10 +16,10 @@ public class SimpleTree<E> implements Tree<E> {
     @Override
     public boolean add(E parent, E child) {
         boolean rsl = false;
-        E value = parent;
-        if (findBy(parent).isPresent() && findBy(child).isEmpty()) {
+        Optional<Node<E>> father = findBy(parent);
+        if (father.isPresent() && findBy(child).isEmpty()) {
             Node<E> kid = new Node<>(child);
-            findBy(parent).get().children.add(kid);
+            father.get().children.add(kid);
             rsl = true;
         }
         return rsl;
