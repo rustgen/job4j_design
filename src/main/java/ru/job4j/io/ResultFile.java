@@ -1,8 +1,6 @@
 package ru.job4j.io;
 
 import java.io.FileOutputStream;
-import java.util.Arrays;
-import java.util.List;
 
 public class ResultFile {
     public static void main(String[] args) {
@@ -11,15 +9,8 @@ public class ResultFile {
             for (int i = 0; i < matrix.length; i++) {
                 for (int j = 0; j < matrix[i].length; j++) {
                     matrix[i][j] = (i + 1) * (j + 1);
+                    out.write((matrix[i][j] + " ").getBytes());
                 }
-            }
-            List<int[]> list = Arrays.stream(matrix).toList();
-            for (int[] val : list) {
-                out.write(Arrays.toString(val)
-                        .replace("[", "")
-                        .replace("]", "")
-                        .replace(",", "")
-                        .getBytes());
                 out.write(System.lineSeparator().getBytes());
             }
         } catch (Exception e) {
