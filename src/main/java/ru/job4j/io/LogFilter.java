@@ -7,7 +7,6 @@ import java.util.List;
 public class LogFilter {
     public static List<String> filter(String file) {
         List<String> list = new ArrayList<>();
-
         try (FileReader reader = new FileReader(file);
              BufferedReader in = new BufferedReader(reader)) {
             for (String line : in.lines().toList()) {
@@ -16,10 +15,9 @@ public class LogFilter {
                     list.add(line);
                 }
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
         return list;
     }
 
@@ -37,8 +35,7 @@ public class LogFilter {
     }
 
     public static void main(String[] args) {
-        LogFilter logFilter = new LogFilter();
-        List<String> log = logFilter.filter("log.txt");
-        System.out.print(log);
+        List<String> log = filter("log.txt");
+        save(log, "404.txt");
     }
 }
