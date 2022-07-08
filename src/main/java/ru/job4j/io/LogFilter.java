@@ -6,22 +6,21 @@ import java.util.List;
 
 public class LogFilter {
     public static List<String> filter(String file) {
-        List<String> res = new ArrayList<>();
+        List<String> list = new ArrayList<>();
 
         try (FileReader reader = new FileReader(file);
              BufferedReader in = new BufferedReader(reader)) {
-            List<String> list = in.lines().toList();
-            for (String line : list) {
+            for (String line : in.lines().toList()) {
                 String[] fullLine = line.split(" ");
                 if ((fullLine[fullLine.length - 2]).contains("404")) {
-                    res.add(line + System.lineSeparator());
+                    list.add(line);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return res;
+        return list;
     }
 
     public static void save(List<String> log, String file) {
@@ -38,7 +37,8 @@ public class LogFilter {
     }
 
     public static void main(String[] args) {
-        List<String> log = filter("log.txt");
-        save(log, "404.txt");
+        LogFilter logFilter = new LogFilter();
+        List<String> log = logFilter.filter("log.txt");
+        System.out.print(log);
     }
 }
