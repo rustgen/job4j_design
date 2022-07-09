@@ -16,11 +16,12 @@ public class Config {
 
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            for (String val : read.lines().toList()) {
+            List<String> list = read.lines().toList();
+            for (String val : list) {
                 if (!(val.startsWith("#")) && !val.isEmpty()) {
                     String[] separate = val.split("=", 2);
                     if (separate.length < 2 || separate[0].isEmpty() || separate[1].isEmpty()) {
-                        throw new IllegalArgumentException("This file doesn't match condition!");
+                        throw new IllegalArgumentException(String.format("The string doesn't match the key=value condition"));
                     }
                     values.put(separate[0], separate[1]);
                 }
