@@ -17,11 +17,11 @@ public class Analizy {
 
     public static void check(StringBuilder err, String line) {
         String[] log = line.split(" ");
-        if (server && (log[0].equals("400") || log[0].equals("500"))) {
+        if (server && ("400".equals(log[0]) || "500".equals(log[0]))) {
             err.append(log[1]).append(";");
             server = false;
         }
-        if (!server && (log[0].equals("200") || log[0].equals("300"))) {
+        if (!server && ("200".equals(log[0]) || "300".equals(log[0]))) {
             err.append(log[1]).append(";").append(System.lineSeparator());
             server = true;
         }
