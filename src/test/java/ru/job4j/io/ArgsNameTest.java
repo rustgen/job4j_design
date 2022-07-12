@@ -55,4 +55,9 @@ public class ArgsNameTest {
     public void whenNoStartKeyCondition() {
         ArgsName jvm = ArgsName.of(new String[] {"enconding=UTF-8"});
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenArrayArgsOfNoValues() {
+        ArgsName jvm = ArgsName.of(new String[0]);
+    }
 }

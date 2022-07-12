@@ -1,6 +1,5 @@
 package ru.job4j.io;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +33,7 @@ public class ArgsName {
     }
 
     public static ArgsName of(String[] args) {
-        if (args == null) {
+        if (args.length == 0) {
             throw new IllegalArgumentException("The array of strings is empty");
         }
         ArgsName names = new ArgsName();
