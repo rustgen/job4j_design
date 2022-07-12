@@ -17,9 +17,7 @@ public class ArgsName {
     private void check(String[] value) {
         if (value.length < 2 || value[0].isEmpty() || value[1].isEmpty()
             || !value[0].startsWith("-") || value[0].length() < 2) {
-            throw new IllegalArgumentException(String.format(
-                    "The %s string of array don't match the -key=value condition", value.toString())
-            );
+            throw new IllegalArgumentException("Parameters must be passed the format \"-key=value\".");
         }
     }
 
