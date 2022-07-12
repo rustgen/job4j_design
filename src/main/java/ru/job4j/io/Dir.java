@@ -15,5 +15,10 @@ public class Dir {
         for (File subfile : file.listFiles()) {
             System.out.println(String.format("file name: %s; file size: %s bytes", subfile.getName(), subfile.length()));
         }
+
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Root folder is null. Usage java -jar dir.jar ROOT_FOLDER.");
+        }
+        File file1 = new File(args[0]);
     }
 }
