@@ -18,11 +18,8 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
         FileProperty fileProperty = new FileProperty(file.toFile().length(),
                 file.getFileName().toString());
         files.putIfAbsent(fileProperty, new ArrayList<>());
-        if (files.containsKey(fileProperty)) {
-            for (List<Path> list : files.values()) {
-                list.add(file);
-            }
-        }
+        List<Path> list = files.get(fileProperty);
+        list.add(file);
         return super.visitFile(file, attrs);
     }
 
