@@ -15,25 +15,27 @@ public class ArgsName {
         return values.get(key);
     }
 
-    private void check(String[] value) {
+    private void check(String str) {
+        String[] value = str.split("=", 2);
         if (value.length < 2 || value[0].isEmpty() || value[1].isEmpty()
             || !value[0].startsWith("-") || value[0].length() < 2) {
-            throw new IllegalArgumentException("Parameters must be passed the format \"-key=value\".");
+            throw new IllegalArgumentException(String.format(
+                    "This String \"%s\" with parameters can't pass the format \"-key=value\".", str
+            ));
         }
     }
 
     private void parse(String[] args) {
         for (String str : args) {
+            check(str);
             String[] val = str.split("=", 2);
-            check(val);
             values.put(val[0].substring(1), val[1]);
         }
-
     }
 
     public static ArgsName of(String[] args) {
         if (args.length == 0) {
-            throw new IllegalArgumentException("The array of strings is empty");
+            throw new IllegalArgumentException("The array of Args is empty");
         }
         ArgsName names = new ArgsName();
         names.parse(args);
