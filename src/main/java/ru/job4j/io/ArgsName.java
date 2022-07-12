@@ -1,5 +1,6 @@
 package ru.job4j.io;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,9 +9,8 @@ public class ArgsName {
     private final Map<String, String> values = new HashMap<>();
 
     public String get(String key) {
-        String arg = values.get(key);
-        if (arg == null) {
-            throw new IllegalArgumentException(String.format("This key - '%s' as a key doesn't exist", arg));
+        if (!values.containsKey(key)) {
+            throw new IllegalArgumentException("The required key as a key doesn't exist");
         }
         return values.get(key);
     }
@@ -18,7 +18,9 @@ public class ArgsName {
     private void check(String[] value) {
         if (value.length < 2 || value[0].isEmpty() || value[1].isEmpty()
             || !value[0].startsWith("-") || value[0].length() < 2) {
-            throw new IllegalArgumentException("The array of strings don't match the -key=value condition");
+            throw new IllegalArgumentException(String.format(
+                    "The %s string of array don't match the -key=value condition", value.toString())
+            );
         }
     }
 
@@ -26,12 +28,15 @@ public class ArgsName {
         for (String str : args) {
             String[] val = str.split("=", 2);
             check(val);
-            values.put(val[0].replace("-", ""), val[1]);
+            values.put(val[0].substring(1), val[1]);
         }
 
     }
 
     public static ArgsName of(String[] args) {
+        if (args == null) {
+            throw new IllegalArgumentException("The array of strings is empty");
+        }
         ArgsName names = new ArgsName();
         names.parse(args);
         return names;
