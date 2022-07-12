@@ -9,7 +9,8 @@ public class ArgsName {
 
     public String get(String key) {
         if (!values.containsKey(key)) {
-            throw new IllegalArgumentException("The required key as a key doesn't exist");
+            throw new IllegalArgumentException(
+                    String.format("The required \"%s\" as a key doesn't exist", key));
         }
         return values.get(key);
     }
