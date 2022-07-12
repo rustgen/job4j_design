@@ -11,23 +11,22 @@ import java.util.*;
 
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
 
-    private final HashMap<FileProperty, Path> files = new HashMap<>();
-    private Set<Path> paths = new LinkedHashSet<>();
+    private final HashMap<FileProperty, List<Path>> files = new HashMap<>();
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         FileProperty fileProperty = new FileProperty(file.toFile().length(),
                 file.getFileName().toString());
-        if (!files.containsKey(fileProperty)) {
-            files.put(fileProperty, file);
-        } else {
-            paths.add(files.get(fileProperty));
-            paths.add(file);
+        files.putIfAbsent(fileProperty, new ArrayList<>());
+        if (files.containsKey(fileProperty)) {
+            for (List<Path> list : files.values()) {
+                list.add(file);
+            }
         }
         return super.visitFile(file, attrs);
     }
 
     public void printFiles() {
-        paths.forEach(System.out::println);
+        files.values().forEach(System.out::println);
     }
 }
