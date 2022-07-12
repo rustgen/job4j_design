@@ -1,7 +1,5 @@
 package ru.job4j.io;
 
-import ru.job4j.map.Map;
-
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
@@ -11,7 +9,7 @@ import java.util.*;
 
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
 
-    private final HashMap<FileProperty, List<Path>> files = new HashMap<>();
+    private final Map<FileProperty, List<Path>> files = new HashMap<>();
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
@@ -24,6 +22,11 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
     }
 
     public void printFiles() {
-        files.entrySet().forEach(System.out::println);
+        for (Map.Entry<FileProperty, List<Path>> l : files.entrySet()) {
+            if (l.getValue().size() > 1) {
+                System.out.println(l.getKey());
+                l.getValue().forEach(v -> System.out.println(v.toAbsolutePath()));
+            }
+        }
     }
 }
