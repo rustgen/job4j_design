@@ -24,6 +24,6 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
     }
 
     public void printFiles() {
-        files.values().forEach(System.out::println);
+        files.entrySet().forEach(System.out::println);
     }
 }
