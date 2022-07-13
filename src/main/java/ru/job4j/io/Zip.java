@@ -27,6 +27,11 @@ public class Zip {
             throw new IllegalArgumentException("There are should be 3 parameters");
         }
         ArgsName name = ArgsName.of(args);
+        if (!name.get("e").startsWith(".")) {
+            throw new IllegalArgumentException(String.format(
+                    "This exclusive - '%s' doesn't start with '.' .", name.get("e")
+            ));
+        }
         if (!Path.of(name.get("d")).toFile().isDirectory()) {
             throw  new IllegalArgumentException(String.format(
                     "This directory - '%s' doesn't exist.", name.get("d")
