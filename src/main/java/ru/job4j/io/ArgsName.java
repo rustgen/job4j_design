@@ -15,10 +15,9 @@ public class ArgsName {
         return values.get(key);
     }
 
-    private void check(String str) {
-        String[] value = str.split("=", 2);
-        if (value.length < 2 || value[0].isEmpty() || value[1].isEmpty()
-            || !value[0].startsWith("-") || value[0].length() < 2) {
+    private void check(String[] values, String str) {
+        if (values.length < 2 || values[0].isEmpty() || values[1].isEmpty()
+            || !values[0].startsWith("-") || values[0].length() < 2) {
             throw new IllegalArgumentException(String.format(
                     "This String \"%s\" with parameters can't pass the format \"-key=value\".", str
             ));
@@ -27,8 +26,8 @@ public class ArgsName {
 
     private void parse(String[] args) {
         for (String str : args) {
-            check(str);
             String[] val = str.split("=", 2);
+            check(val, str);
             values.put(val[0].substring(1), val[1]);
         }
     }
