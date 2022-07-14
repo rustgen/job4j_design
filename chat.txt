@@ -1,0 +1,117 @@
+eqwe
+9
+fdf
+9
+fsfsdv
+9
+dawd
+9
+stop
+daw
+dad
+continue
+9
+sdsad
+9
+stop
+faf
+stop
+out
+out
+eqwe
+8
+fdf
+8
+fsfsdv
+8
+dawd
+8
+stop
+daw
+dad
+continue
+8
+sdsad
+8
+stop
+faf
+stop
+out
+Number
+10
+Number
+10
+stop
+Without number
+Without number
+continue
+10
+Number
+10
+Number
+10
+stop
+out
+Number
+1
+Number
+1
+stop
+Without number
+Without number
+continue
+1
+Number
+1
+Number
+1
+stop
+out
+Number
+10
+Number
+10
+stop
+Without number
+Without number
+continue
+10
+Number
+10
+Number
+10
+stop
+Without number
+out
+Number
+7
+Number
+7
+stop
+Without number
+Without number
+continue
+7
+Number
+7
+Number
+7
+stop
+Without number
+out
+Number
+6
+Number
+6
+stop
+Without number
+Without number
+continue
+6
+Number
+6
+Number
+6
+stop
+Without number
+out
