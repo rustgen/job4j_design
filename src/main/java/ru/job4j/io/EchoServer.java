@@ -19,7 +19,7 @@ public class EchoServer {
                         server.close();
                     } else if (read.contains("?msg=Hello")) {
                         out.write("Hello!\r\n\r\n".getBytes());
-                    } else if (read.contains("??msg=What")) {
+                    } else if (read.contains("?msg=What")) {
                         out.write("What?\r\n\r\n".getBytes());
                     }
                     out.flush();
