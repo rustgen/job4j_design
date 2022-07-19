@@ -71,12 +71,12 @@ public class CSVReader {
         }
         if (!";".equals(name.get("delimiter")) && !"stdout".equals(name.get("out"))) {
             throw new IllegalArgumentException(String.format(
-                    "Delimiter should be only ',' !", name.get("delimiter")
+                    "Delimiter '%s' should be only ',' !", name.get("delimiter")
             ));
         }
         if (!new File(name.get("out")).isFile()) {
             throw new IllegalArgumentException(String.format(
-                    "Out should be only 'stdout' !", name.get("out")
+                    "Out '%s' should be only 'stdout' !", name.get("out")
             ));
         }
         if (name.get("filter").isEmpty()) {
