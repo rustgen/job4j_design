@@ -1,8 +1,17 @@
 package ru.job4j.serialization.json;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "animal")
 public class Animal {
 
-    private final String kind;
+    @XmlAttribute
+    private String kind;
+
+    public Animal() {
+
+    }
 
     public Animal(String kind) {
         this.kind = kind;
