@@ -1,0 +1,8 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<cat homePet="true" paws="4" breed="British">
+    <animal kind="cat"/>
+    <characters>
+        <character>Always eat</character>
+        <character>Always sleep</character>
+    </characters>
+</cat>
