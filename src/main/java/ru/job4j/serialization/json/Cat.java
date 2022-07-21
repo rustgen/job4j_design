@@ -50,6 +50,14 @@ public class Cat {
         return breed;
     }
 
+    public Animal getAnimal() {
+        return animal;
+    }
+
+    public String[] getCharacters() {
+        return characters;
+    }
+
     @Override
     public String toString() {
         return "Cat{"
