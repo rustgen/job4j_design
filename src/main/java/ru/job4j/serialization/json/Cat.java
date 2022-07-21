@@ -38,6 +38,18 @@ public class Cat {
         this.characters = characters;
     }
 
+    public boolean isHomePet() {
+        return homePet;
+    }
+
+    public int getPaws() {
+        return paws;
+    }
+
+    public String getBreed() {
+        return breed;
+    }
+
     @Override
     public String toString() {
         return "Cat{"
