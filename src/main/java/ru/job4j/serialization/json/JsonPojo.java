@@ -20,7 +20,7 @@ public class JsonPojo {
 
         /* JSONObject directly by put method */
         final Cat cat = new Cat(true, 4, "British",
-                new Animal("cat"), new String[] {"always eat", "always sleep"});
+                new Animal("cat"), new String[] {"always eats", "always sleeps"});
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("homePet", cat.isHomePet());
         jsonObject.put("paws", cat.getPaws());
