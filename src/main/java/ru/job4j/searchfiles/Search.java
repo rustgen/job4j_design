@@ -11,9 +11,8 @@ import java.util.regex.Pattern;
 public class Search {
 
     public static void main(String[] args) throws IOException {
-        Search search = new Search();
         ArgsName name = ArgsName.of(args);
-        Path path = validateArgs(args);
+        validateArgs(args, name);
         Predicate<Path> pathPredicate = searchMasks(args);
         List<Path> list = search(Path.of(name.get("d")), pathPredicate);
         writeFile(list, name.get("o"));
@@ -25,7 +24,8 @@ public class Search {
         if ("name".equals(name.get("t"))) {
             search =  p -> p.toFile().getName().equals(name.get("n"));
         } else if ("mask".equals(name.get("t"))) {
-            search = p -> p.toFile().getName().endsWith(name.get("n").substring(1));
+            search = p -> p.toFile().getName().matches(name.get("n").replace(".", "[.]")
+                    .replace("*", ".+").replace("?", "."));
         } else if ("regex".equals(name.get("t"))) {
             search = p -> p.toFile().getName().matches(name.get("n"));
         }
@@ -49,8 +49,7 @@ public class Search {
         }
     }
 
-    public static Path validateArgs(String[] args) {
-        ArgsName name = ArgsName.of(args);
+    public static Path validateArgs(String[] args, ArgsName name) {
         if (args.length != 4) {
             throw new IllegalArgumentException("Parameters should be 4 follow condition.");
         }
