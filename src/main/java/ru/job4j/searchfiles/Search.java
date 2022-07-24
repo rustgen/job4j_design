@@ -13,13 +13,12 @@ public class Search {
     public static void main(String[] args) throws IOException {
         ArgsName name = ArgsName.of(args);
         validateArgs(args, name);
-        Predicate<Path> pathPredicate = searchMasks(args);
+        Predicate<Path> pathPredicate = searchMasks(name);
         List<Path> list = search(Path.of(name.get("d")), pathPredicate);
         writeFile(list, name.get("o"));
     }
 
-    public static Predicate<Path> searchMasks(String[] args) {
-        ArgsName name = ArgsName.of(args);
+    public static Predicate<Path> searchMasks(ArgsName name) {
         Predicate<Path> search = null;
         if ("name".equals(name.get("t"))) {
             search =  p -> p.toFile().getName().equals(name.get("n"));
@@ -44,7 +43,7 @@ public class Search {
                         new FileOutputStream(file)
                 ))) {
             for (Path line : log) {
-                out.write(line.toString());
+                out.write(String.valueOf(line));
             }
         }
     }
@@ -59,7 +58,7 @@ public class Search {
                     String.format("There is no such directory as '%s' or it doesn't exist.",
                             name.get("d")));
         }
-        if ("name".equals(name.get("t")) && !name.get("n").startsWith(".")) {
+        if ("name".equals(name.get("t")) && name.get("n").startsWith(".")) {
             throw new IllegalArgumentException(String.format(
                     "Second parameter %s doesn't equal to third parameter name: %s .",
                     name.get("n"), name.get("t")));
@@ -69,7 +68,7 @@ public class Search {
                     "Second parameter %s doesn't match to third parameter mask: %s .",
                     name.get("n"), name.get("t")));
         }
-        if ("regex".equals(name.get("t")) && !name.get("n").endsWith("+")) {
+        if ("regex".equals(name.get("t")) && !name.get("n").endsWith("$")) {
             throw new IllegalStateException(String.format(
                     "Second parameter %s doesn't match to third parameter regex: %s .",
                     name.get("n"), name.get("t")));
