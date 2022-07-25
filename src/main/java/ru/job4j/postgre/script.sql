@@ -1,3 +1,9 @@
+create table devices(
+    id serial primary key,
+    name varchar(300),
+    model text,
+    version float8
+);
 insert into devices(name, model, version) values('iPhone', '13 pro', '16.2');
 insert into devices(name, model, version) values('iPad', '11 pro', '15.6');
 insert into devices(name, model, version) values('iMac', 'M1', '12.03');
