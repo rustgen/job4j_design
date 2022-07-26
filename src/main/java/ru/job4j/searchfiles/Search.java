@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 
 public class Search {
 
+    /* Example configuration of args */
+    /* -d=/Users/rust/Projects/job4j_design -n=.*\..*$ -t=regex -o=log.txt  */
     public static void main(String[] args) throws IOException {
         ArgsName name = ArgsName.of(args);
         validateArgs(args, name);
@@ -43,7 +45,7 @@ public class Search {
                         new FileOutputStream(file)
                 ))) {
             for (Path line : log) {
-                out.write(String.valueOf(line));
+                out.println(line);
             }
         }
     }
