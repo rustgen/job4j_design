@@ -227,7 +227,7 @@ WHERE name LIKE '%Ice Cream%';
 
 --3. Написать запрос, который выводит все продукты, срок годности которых уже истек
 SELECT * FROM product
-WHERE expired_date < '2022-07-27';
+WHERE expired_date < current_date;
 
 --4. Написать запрос, который выводит самый дорогой продукт.
 SELECT name, price FROM product
