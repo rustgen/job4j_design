@@ -1,13 +1,13 @@
 create table vincar (
-    id serial primary key
-	vin_num VARCHAR(50),
+    id serial primary key,
+	vin_num VARCHAR(50)
 );
 
 create table cars (
     id serial primary key,
 	name VARCHAR(50),
 	year int,
-	vincar_id references vincar(id) unique
+	vincar_id int references vincar(id) unique
 );
 
 insert into vincar (vin_num) values ('WBADR63473G670310');
@@ -34,9 +34,13 @@ insert into cars (name, year) values ('Regal', 1992);
 
 SELECT * FROM cars INNER JOIN vincar ON cars.vincar_id = vincar.id;
 
-SELECT cn.name, vin.vincar FROM cars AS cn JOIN vincar AS vin ON cn.vincar_id = vin.id;
+SELECT cn.name, vin.vin_num
+FROM cars AS cn
+JOIN vincar AS vin ON cn.vincar_id = vin.id;
 
-SELECT year, vin.vincar AS vin FROM cars JOIN vin ON cars.vincar_id = vin.id;
+SELECT year, vin.vin_num AS vn
+FROM cars JOIN vincar AS vin
+ON cars.vincar_id = vin.id;
 
 
 
