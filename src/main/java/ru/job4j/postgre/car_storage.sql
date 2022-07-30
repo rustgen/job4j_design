@@ -162,17 +162,17 @@ insert into cars (name, body_id, engine_id, transmission_id) values ('Mercury', 
 --Нужно учесть, что каких-то деталей машина может и не содержать.
 --В таком случае значение может быть null при выводе (например, название двигателя null);
 SELECT * FROM cars
-FULL JOIN car_bodies b ON cars.body_id = b.id
-FULL JOIN car_engines e ON cars.engine_id = e.id
-FULL JOIN car_transmissions t ON cars.transmission_id = t.id;
+LEFT JOIN car_bodies b ON cars.body_id = b.id
+LEFT JOIN car_engines e ON cars.engine_id = e.id
+LEFT JOIN car_transmissions t ON cars.transmission_id = t.id;
 
 --2.Вывести кузовы, которые не используются НИ в одной машине.
 --"Не используются" значит, что среди записей таблицы cars отсутствует внешние ключи,
 --ссылающие на таблицу car_bodies. Например, Вы добавили в car_bodies "седан", "хэтчбек" и "пикап",
 --а при добавлении в таблицу cars указали только внешние ключи на записи "седан" и "хэтчбек".
 --Запрос, касающийся этого пункта, должен вывести "пикап", т.к. среди машин нет тех, что обладают таким кузовом;
-SELECT b.name body_null FROM cars
-RIGHT JOIN car_bodies b ON cars.body_id = b.id
+SELECT b.name body_null FROM car_bodies b
+LEFT JOIN cars ON cars.body_id = b.id
 WHERE cars.body_id IS null;
 
 --3.Вывести двигатели, которые не используются НИ в одной машине, аналогично п.2;
