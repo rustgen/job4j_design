@@ -156,9 +156,9 @@ SELECT * FROM employees e
 CROSS JOIN departments d;
 
 --3. Используя left join найти департаменты, у которых нет работников
-SELECT * FROM employees e
-LEFT JOIN departments d ON e.type_id = d.id
-WHERE d.id IS null;
+SELECT * FROM departments d
+LEFT JOIN employees e ON e.type_id = d.id
+WHERE e.type_id IS null;
 
 --4. Используя left и right join написать запросы,
 --которые давали бы одинаковый результат (порядок вывода колонок в эти запросах также должен быть идентичный).
@@ -169,7 +169,6 @@ SELECT * FROM employees e
 RIGHT JOIN departments d ON e.type_id = d.id;
 
 --5. Создать таблицу teens с атрибутами name, gender и заполнить ее.
---Используя cross join составить все возможные разнополые пары
 create table teens (
     id serial primary key,
 	name VARCHAR(50),
@@ -197,9 +196,9 @@ insert into teens (name, gender) values ('Shepard', 'Male');
 insert into teens (name, gender) values ('Brien', 'Male');
 insert into teens (name, gender) values ('Sylas', 'Male');
 
-SELECT t1.name, t2.name
+--5. Используя cross join составить все возможные разнополые пары
+SELECT DISTINCT t1.gender, t2.gender
 FROM teens t1 CROSS JOIN teens t2
-WHERE t1.name != t2.name;
-
+WHERE t1.gender != t2.gender;
 
 
