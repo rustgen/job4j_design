@@ -2,8 +2,6 @@ package ru.job4j.jdbc;
 
 import ru.job4j.io.Config;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -11,10 +9,6 @@ import java.sql.SQLException;
 
 public class ConnectionDemo {
 
-    File file = new File("");
-    public void readDriver() throws IOException {
-
-    }
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Config config = new Config("./data/app.properties");
         config.load();
