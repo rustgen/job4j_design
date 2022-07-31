@@ -197,8 +197,8 @@ insert into teens (name, gender) values ('Brien', 'Male');
 insert into teens (name, gender) values ('Sylas', 'Male');
 
 --5. Используя cross join составить все возможные разнополые пары
-SELECT DISTINCT t1.gender, t2.gender
+SELECT DISTINCT t1.name, t2.name, t1.gender, t2.gender
 FROM teens t1 CROSS JOIN teens t2
-WHERE t1.gender != t2.gender;
+WHERE t1.gender != t2.gender AND t1.name != t2.name;
 
 
