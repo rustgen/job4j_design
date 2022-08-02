@@ -1,6 +1,5 @@
 package ru.job4j.jdbc;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
@@ -33,7 +32,7 @@ public class TableEditor implements AutoCloseable {
 
     public void createTable(String tableName) throws Exception {
         String sql = String.format(
-                "drop table if exists %s;", tableName
+                "create table if not exists %s();", tableName
         );
         statement(sql);
         System.out.println(getTableScheme(connection, tableName));
@@ -41,10 +40,9 @@ public class TableEditor implements AutoCloseable {
 
     public void dropTable(String tableName) throws Exception {
         String sql = String.format(
-                "create table if not exists %s;", tableName
+                "drop table if exists %s;", tableName
         );
         statement(sql);
-        System.out.println(getTableScheme(connection, tableName));
     }
 
     public void addColumn(String tableName, String columnName, String type) throws Exception {
@@ -60,6 +58,7 @@ public class TableEditor implements AutoCloseable {
                 "ALTER TABLE %s DROP COLUMN %s;", tableName, columnName
         );
         statement(sql);
+        System.out.println(getTableScheme(connection, tableName));
     }
 
     public void renameColumn(String tableName, String columnName, String newColumnName) throws Exception {
